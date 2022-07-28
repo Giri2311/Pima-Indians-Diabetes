@@ -33,13 +33,14 @@ def predict():
 
     #model prediction 
     prediction= model.predict_proba(rowDF_new)
-    valPred= round(prediction[0][1],3)
+    
 
     if prediction[0][1] >0.5:
-        
-        return render_template('result.html',pred= f"You have a chance of having diabetes.\n Probability of you being diabetic is-{valPred*100}%")
+        valPred= round(prediction[0][1],3)
+        return render_template('result.html',pred= f"You have a chance of having diabetes.\n\nProbability of you being diabetic is:{prediction[0][1]*100:.2f}%")
     else:
-        return render_template('result.html',pred= f"You appear to be safe from Diabetes.\n Probability of you being non-diabetic is-{valPred*100}%")
+        valPred= round(prediction[0][0],3)
+        return render_template('result.html',pred= f"You appear to be safe from Diabetes.\n\n Probability of you being non-diabetic is:{prediction[0][0]*100:.2f}%")
 
 
 if __name__ == "__main__":
